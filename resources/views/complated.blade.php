@@ -29,7 +29,7 @@
                 </p>
                 <br>
                 <span>
-                    <a style="text-decoration: none" href="/dashboard" class="text-success">Back</a>
+                    <a style="text-decoration: none" href="/dashboard" class="text-success">b</a>
                 </span>
             </div>
             <div class="info btn ml-md-4 ml-0">

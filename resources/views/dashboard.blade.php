@@ -78,7 +78,13 @@
                     <p class="text-black">
                         {{$item->status == 1 ? 'Complated' : 'On-proses'}}
                         {{-- Carbon itu package laravel untuk mengelola yang berhubungan dengan date. Tdainya value column date di db kan bentuknya format 2022-11-22 nah kita pengen ubah bentuk formatnyanya jadi 22-11-22--}}
-                        <span class="date">{{\Carbon\Carbon::parse($item->date)->format('j F, Y')}}</span>
+                        <span class="date">
+                            @if ($item['status'] == 1)
+                                selesai pada : {{\Carbon\Carbon::parse($item['done_time'])->format('j F, Y')}}
+                            @else
+                                Target : {{\Carbon\Carbon::parse($item['done_time'])->format('j F, Y')}}
+                            @endif
+                        </span>
                     </p>
                 </div>
                 <div class="ml-md-4 ml-0">
