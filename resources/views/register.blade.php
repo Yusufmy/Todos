@@ -4,9 +4,9 @@
 <section id="register">
 <form method="POST" action="{{route('register.input')}}">
     <div class="container">
-        <div class="row justify-content-center" style="margin-right: 100px">
-            <div class="col-4">
-            <div class="card border border-primary ml-5" style="margin-top: 170px; border-radius: 12px;
+        <div class="row justify-content-center" style="margin-right: 50px">
+            <div class="col-md-4">
+            <div class="card border border-primary ml-5" style="margin-top: 200px; border-radius: 12px;
             background: #a9d9e5;
             box-shadow: inset -9px 9px 0px #44575c,
                         inset 9px -9px 0px #ffffff;">

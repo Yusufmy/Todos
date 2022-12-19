@@ -2,8 +2,8 @@
 
 @section('controller')
     <div class="container">
-        <div class="row">
-            <div class="col">
+        <div class="row mt-5 d-flex justify-content-center">
+            <div class="col-4">
                 <form action="" method="post">
                     @csrf
                     @method('PATCH')
@@ -12,7 +12,7 @@
                         <input type="file" name="image_profile" class="form-control" id="image_upload">
                     </div>
                     <button class="btn btn-primary" type="submit">Ubah</button>
-                    <a class="btn btn-secondary" href="/todo/profile">Kembali</a>
+                    <a class="btn btn-secondary" href="/profile">Kembali</a>
                 </form>
             </div>
         </div>

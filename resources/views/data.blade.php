@@ -26,6 +26,7 @@
                         @endforeach
                     </tbody>
                 </table>
+                <a class="btn btn-primary" href="/dashboard">Kembali</a>
             </div>
         </div>
     </div>

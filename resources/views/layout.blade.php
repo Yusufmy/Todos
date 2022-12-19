@@ -29,36 +29,37 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/home">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/dashboard">My Todo's</a>
-                        </li>
-                        @if (Auth::user()->role == 'admin')
+                        @if (Auth::user()->role == 'user')
                             <li class="nav-item">
-                                <a class="nav-link" href="/dashboard">users</a>
+                                <a class="nav-link active" aria-current="page" href="/home">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/dashboard">My Todo's</a>
                             </li>
                         @endif
-
-                        {{-- <li class="nav-item">
-              <a class="nav-link" href="/create">Create Todo's</a>
-            </li> --}}
-                    </ul>
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            {{ Auth::user()->username }}
-                        </button>
-                        <ul class="dropdown-menu " aria-labelledby="dropdownMenuButton1 ">
-                            <li><a class="dropdown-item" href="/profile">Profile</a></li>
-                            <li><a class="dropdown-item" href="#"></a>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="dropdown">
+                            <button class="btn dropdown-toggle text-light" type="button" id="dropdownMenuButton1"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="assets/img/profile.png" alt="profile" width="30px" style="border-radius: 50%">
+                                {{ Auth::user()->username }}
+                            </button>
+                            <ul class="dropdown-menu " aria-labelledby="dropdownMenuButton1 ">
+                                <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                                @if (Auth::user()->role == 'admin')
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" href="/data">users</a>
+                                    </li>
+                                @endif
                                 <form action="/logout" method="post">
                                     @csrf
                                     <button class="btn  bi bi-box-arrow-in-right" type="submit">Logout</button>
                                 </form>
-                            </li>
-                        </ul>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                     <ul class="navbar-nav ms-auto bi bi-person-gear">
                         {{-- <div class="nameuser mt-2 text-white">
@@ -69,6 +70,7 @@
                     @endauth
                 </ul>
             </div>
+        </div>
         </div>
     </nav>
     @yield('controller')

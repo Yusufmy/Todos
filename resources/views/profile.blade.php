@@ -2,9 +2,9 @@
 
 @section('controller')
     <div class="container">
-        <div class="row mt-5 d-flex justify-content-center">
-            <div class="col-4">
-                <div class="card">
+        <div class="row mt-5">
+            <div class="col">
+                <div class="card rounded mx-auto d-block" style="width: 400px">
                     <div class="card-body">
                         <h1 class="text-center">Profile</h1>
                         @csrf
@@ -19,11 +19,19 @@
                             <a href="{{ route('todo.profile.upload') }}" class="btn btn-primary">Ubah Foto Profile</a>
                         </div>
                     </div>
-                    <ul style="list-style:none">
-                        <li>Username : {{ Auth::user()->username }}</li>
-                        <li>Name : {{ Auth::user()->name }}</li>
-                        <li>Email : {{ Auth::user()->email }}</li>
-                    </ul>
+                    <div class="col-20">
+                        <ul style="list-style:none">
+                            <h5 class="bi bi-person-fill"> Username</h5>
+                            <hr style="width: 50px;position:absolute;margin-top:22px;margin-left:25px">
+                            <li class="ms-4">{{ Auth::user()->username }}</li>
+                            <h5 class="mt-3 bi bi-person-lines-fill"> Name</h5>
+                            <hr style="width: 50px;position:absolute;margin-top:22px;margin-left:25px">
+                            <li class="ms-4">{{ Auth::user()->name }}</li>
+                            <h5 class="mt-3 bi bi-envelope-fill"> Email</h5>
+                            <hr style="width: 50px;position:absolute;margin-top:22px;margin-left:25px">
+                            <li class="ms-4">{{ Auth::user()->email }}</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
