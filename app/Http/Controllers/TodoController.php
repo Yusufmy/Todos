@@ -16,23 +16,48 @@ class TodoController extends Controller
     //controller register
     public function register()
     {
-    return view('register');
+        return view('register');
     }
 
     //controller dashboard
-    public function dashboard(){
+    public function dashboard()
+    {
         $todo = Todo::where('user_id', '=', auth::user()->id)->get();
-        return view('dashboard',compact('todo'));
+        return view('dashboard', compact('todo'));
     }
 
     //controller home
-    public function home(){
+    public function home()
+    {
         return view('home');
     }
 
+    //controller profile
+    public function profile()
+    {
+        return view('profile');
+    }
+
     //controller layout
-    public function layout(){
+    public function layout()
+    {
         return view('layout');
+    }
+
+    public function error()
+    {
+        return view('error');
+    }
+
+    public function data()
+    {
+        $users = User::all();
+        return view('data', compact('users'));
+    }
+
+    public function profileUpload()
+    {
+        return view('uploadProfile');
     }
 
     /**
@@ -47,7 +72,8 @@ class TodoController extends Controller
     }
 
     //controller logout
-    public function logout(){
+    public function logout()
+    {
         auth::logout();
         return redirect('/');
     }
@@ -56,36 +82,38 @@ class TodoController extends Controller
     {
         // dd($request->all());
         $request->validate([
-                'email' => 'required|email|:dns',
-                'username' => 'required|min:4|max:8',
-                'password' => 'required|min:4',
-                'name' => 'required|min:3',
-            
-            ]);
+            'email' => 'required|email|:dns',
+            'username' => 'required|min:4|max:8',
+            'password' => 'required|min:4',
+            'name' => 'required|min:3',
+
+        ]);
         //input ke db
-            User::create([
-                  'name' => $request->name,
-                  'username' => $request->username,
-                  'email' => $request->email,
-                  'password' => Hash::make($request->password), 
-                ]);
-            return redirect('/')-> with('success', 'Berhasil menambahkan akun! silahkan login');
+        User::create([
+            'name' => $request->name,
+            'username' => $request->username,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => 'user',
+        ]);
+        return redirect('/')->with('success', 'Berhasil menambahkan akun! silahkan login');
     }
 
-    public function auth(Request $request){
+    public function auth(Request $request)
+    {
         $request->validate([
             'username' => 'required|exists:users,username',
-            'password'=> 'required',
-        ],[
-             'username.exists' => 'username ini belum tersedia',
-             'username.required' => 'username harus diisi',
-             'password.required' => 'password harus diisi',
+            'password' => 'required',
+        ], [
+            'username.exists' => 'username ini belum tersedia',
+            'username.required' => 'username harus diisi',
+            'password.required' => 'password harus diisi',
         ]);
 
-        $user = $request->only('username','password');
-        if(Auth::attempt($user)){
+        $user = $request->only('username', 'password');
+        if (Auth::attempt($user)) {
             return redirect()->route('dashboard.io');
-        }else {
+        } else {
             return redirect()->back()->with('error', 'Gagal login, silahkan cek dan coba lagi');
         }
     }
@@ -118,7 +146,7 @@ class TodoController extends Controller
         //tes koneksi blade dengan controller
         //dd($request->all());
         // validasi data
-      $validated = $request->validate([
+        $validated = $request->validate([
             'title' => 'required|max:8',
             'date' => 'required',
             'description' => 'required|max:15',
@@ -138,7 +166,7 @@ class TodoController extends Controller
             'status' => 0,
             'user_id' => Auth::user()->id
         ]);
-        return redirect('/dashboard')->with('success','Berhasl menambahkan data todo!');
+        return redirect('/dashboard')->with('success', 'Berhasl menambahkan data todo!');
     }
 
     /**
@@ -192,7 +220,7 @@ class TodoController extends Controller
             'user_id' => Auth::user()->id
         ]);
         // kalau berhasil, halaman bakal di redirect ulang ke halaman awal todo dengan pesan pemberitahuan
-        return redirect('dashboard')->with('successUpdate','Data berhasil diperbarui!');
+        return redirect('dashboard')->with('successUpdate', 'Data berhasil diperbarui!');
     }
 
     /**
@@ -201,23 +229,25 @@ class TodoController extends Controller
      * @param  \App\Models\Todo  $todo
      * @return \Illuminate\Http\Response
      */
-    public function destroy( $id)
+    public function destroy($id)
     {
-      Todo::find($id)->delete();
-      return redirect('/dashboard')->with('success','Berhasil di hapus');
+        Todo::find($id)->delete();
+        return redirect('/dashboard')->with('success', 'Berhasil di hapus');
     }
 
-    public function complated(){
+    public function complated()
+    {
         $todo = Todo::where('user_id', Auth::user()->id)->get();
-        return view('complated',compact('todo'));
+        return view('complated', compact('todo'));
     }
 
-    public function updateComplated($id){
-        Todo::where('id','=',$id)->update([
+    public function updateComplated($id)
+    {
+        Todo::where('id', '=', $id)->update([
             'status' => 1,
             'done_time' => \Carbon\Carbon::now(),
         ]);
 
-        return redirect()->back()->with('done','Todo telah selesai dikerjakan');
+        return redirect()->back()->with('done', 'Todo telah selesai dikerjakan');
     }
 }
