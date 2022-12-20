@@ -16,7 +16,8 @@
                                 srcset="" style="border-radius: 50%" class="d-block m-auto">
                         @endif
                         <div class="d-flex">
-                            <a href="{{ route('todo.profile.upload') }}" class="btn btn-primary">Ubah Foto Profile</a>
+                            <a href="{{ route('todo.profile.upload') }}" class="btn btn-primary bi bi-images"> Ubah Foto
+                                Profile</a>
                         </div>
                     </div>
                     <div class="col-20">

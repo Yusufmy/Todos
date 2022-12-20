@@ -83,7 +83,7 @@ class TodoController extends Controller
         // dd($request->all());
         $request->validate([
             'email' => 'required|email|:dns',
-            'username' => 'required|min:4|max:8',
+            'username' => 'required|min:4|max:15',
             'password' => 'required|min:4',
             'name' => 'required|min:3',
 
@@ -147,9 +147,9 @@ class TodoController extends Controller
         //dd($request->all());
         // validasi data
         $validated = $request->validate([
-            'title' => 'required|max:8',
+            'title' => 'required|min:5',
             'date' => 'required',
-            'description' => 'required|max:15',
+            'description' => 'required|min:15',
 
         ]);
         // mengirimkan data ke dalam database table todos dengan model Todo

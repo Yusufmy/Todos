@@ -21,7 +21,7 @@
                                 <td>{{ $item->username }}</td>
                                 <td>{{ $item->email }}</td>
                                 <td>{{ $item->name }}</td>
-                                <td>{{ $item->created_at }}</td>
+                                <td>{{ $item->created_at->format('j F, Y') }}</td>
                             </tr>
                         @endforeach
                     </tbody>
