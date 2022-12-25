@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\auth;
 use Illuminate\Support\Facades\Storage;
 use PhpParser\Parser\Tokens;
+use Termwind\Components\Dd;
 
 class TodoController extends Controller
 {
@@ -35,7 +36,8 @@ class TodoController extends Controller
     //controller profile
     public function profile()
     {
-        return view('profile');
+        $users = User::all();
+        return view('profile', compact('users'));
     }
 
     //controller layout
@@ -149,7 +151,7 @@ class TodoController extends Controller
         $validated = $request->validate([
             'title' => 'required|min:5',
             'date' => 'required',
-            'description' => 'required|min:15',
+            'description' => 'required|min:5',
 
         ]);
         // mengirimkan data ke dalam database table todos dengan model Todo
@@ -249,5 +251,31 @@ class TodoController extends Controller
         ]);
 
         return redirect()->back()->with('done', 'Todo telah selesai dikerjakan');
+    }
+
+    public function changeProfile(Request $request)
+    {
+        // dd($request->all());
+        $request->validate([
+            'image_profile' => 'required|image|mimes:jpg,png,jpeg,gif'
+        ]);
+
+        $image = $request->file('image_profile');
+
+        $imgName = time() . rand() . '.' . $image->extension();
+
+        if (!file_exists(public_path('/assets/img/' . $image->getClientOriginalName()))) {
+            $destinationPath = public_path('/assets/img/');
+
+            $image->move($destinationPath, $imgName);
+            $uploaded = $imgName;
+        } else {
+            $uploaded = $image->getClientOriginalName();
+        }
+        User::where('id', Auth::user()->id)->update([
+            'image_profile' => $uploaded,
+        ]);
+
+        return redirect()->route('profile')->with('successUploading', 'Foto profile berhasil diperbarui');
     }
 }

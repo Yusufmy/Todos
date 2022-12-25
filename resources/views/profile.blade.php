@@ -2,10 +2,15 @@
 
 @section('controller')
     <div class="container">
-        <div class="row mt-5">
+        <div class="row mt-4">
             <div class="col">
                 <div class="card rounded mx-auto d-block" style="width: 400px">
                     <div class="card-body">
+                        @if (session('successUploading'))
+                            <div class="alert alert-success">
+                                {{ session('successUploading') }}
+                            </div>
+                        @endif
                         <h1 class="text-center">Profile</h1>
                         @csrf
                         @if (is_null(Auth::user()->image_profile))
@@ -13,9 +18,10 @@
                                 style="border-radius: 50%" class="d-block m-auto">
                         @else
                             <img src="{{ asset('assets/img/' . Auth::user()->image_profile) }}" alt=""
-                                srcset="" style="border-radius: 50%" class="d-block m-auto">
+                                srcset="" style="border-radius: 50%" class="d-block m-auto  img-fluid">
                         @endif
-                        <div class="d-flex">
+                        <div class="d-flex
+                        ">
                             <a href="{{ route('todo.profile.upload') }}" class="btn btn-primary bi bi-images"> Ubah Foto
                                 Profile</a>
                         </div>

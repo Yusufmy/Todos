@@ -4,7 +4,7 @@
     <section id="login">
         <form method="POST" action="/login/auth">
             <div class="container ">
-                <div class="row justify-content-center" style="margin-top: 150px; margin-right:80px">
+                <div class="row justify-content-center" style="margin-top: 100px; margin-right:80px">
                     <div class="col-md-4">
                         <div class="card border border-primary"
                             style="margin-top: 100px; border-radius: 12px;

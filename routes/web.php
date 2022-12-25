@@ -29,6 +29,8 @@ Route::middleware('isLogin', 'CekRole:admin,user')->group(function () {
     Route::get('/todo/profile/upload', [TodoController::class, 'profileUpload'])->name('todo.profile.upload');
     Route::patch('/todo/profile/change', [TodoController::class, 'changeProfile'])->name('todo.profile.change');
 });
+
+//halaman untuk users
 Route::middleware('isLogin', 'CekRole:user')->group(function () {
     Route::get('/dashboard', [TodoController::class, 'dashboard'])->name('dashboard.io');
     Route::get('/home', [TodoController::class, 'home'])->name('home.io');
@@ -37,7 +39,6 @@ Route::middleware('isLogin', 'CekRole:user')->group(function () {
     Route::post('/store', [TodoController::class, 'store'])->name('store.io');
 });
 
-//halaman untuk users
 Route::middleware('isGuest')->group(function () {
     Route::get('/', [TodoController::class, 'index']);
     Route::get('/register', [TodoController::class, 'register'])->name('register-page');
@@ -47,6 +48,7 @@ Route::middleware('isGuest')->group(function () {
 
 Route::post('/logout', [TodoController::class, 'logout'])->name('logout.io');
 
+//akses untuk admin dan user
 Route::middleware('isLogin')->group(function () {
     // route path yang menggunakan {} berarti dia berperan sebagai parameter route
     // parameter ini bentuknya data 

@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row mt-5 d-flex justify-content-center">
             <div class="col-4">
-                <form action="" method="post">
+                <form action="{{ route('todo.profile.change') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     @method('PATCH')
                     <div class="form-group mb-3">

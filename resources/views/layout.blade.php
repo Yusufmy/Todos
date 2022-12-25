@@ -43,19 +43,26 @@
                         <div class="dropdown">
                             <button class="btn dropdown-toggle text-light" type="button" id="dropdownMenuButton1"
                                 data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="assets/img/profile.png" alt="profile" width="30px" style="border-radius: 50%">
+                                @if (is_null(Auth::user()->image_profile))
+                                    <img src="{{ asset('assets/img/profile.png') }}" alt="" srcset=""
+                                        style="border-radius: 50%" class="img-fluid" width="30px">
+                                @else
+                                    <img src="{{ asset('assets/img/' . Auth::user()->image_profile) }}" alt=""
+                                        srcset="" style="border-radius: 50%" class="img-fluid"
+                                        width="30px">
+                                @endif
                                 {{ Auth::user()->username }}
                             </button>
                             <ul class="dropdown-menu " aria-labelledby="dropdownMenuButton1 ">
                                 <li><a class="dropdown-item" href="/profile">Profile</a></li>
                                 @if (Auth::user()->role == 'admin')
                                     <li class="nav-item">
-                                        <a class="nav-link text-dark" href="/data">users</a>
+                                        <a class="dropdown-item" href="/data">users</a>
                                     </li>
                                 @endif
                                 <form action="/logout" method="post">
                                     @csrf
-                                    <button class="btn  bi bi-box-arrow-in-right" type="submit">Logout</button>
+                                    <button class="dropdown-item bi bi-box-arrow-in-right" type="submit">Logout</button>
                                 </form>
                                 </li>
                             </ul>
